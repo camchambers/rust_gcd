@@ -22,3 +22,14 @@ fn gcd(mut n: u64, mut m: u64) -> u64 {
     }
     n
 }
+
+#[test]
+fn test_gcd_eq() {
+    assert_eq!(gcd(14, 15), 1);
+    assert_eq!(gcd(64, 28), 4);
+}
+
+#[test]
+fn test_gcd_ne() {
+    assert_ne!(gcd(64, 28), 5);
+}
