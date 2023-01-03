@@ -1,13 +1,26 @@
+use std::str::FromStr;
+use std::env;
+
 fn main() {
     println!("Greatest Common Divisor - Euclid's Algorithm");
-    let first_number = 128;
-    let second_number = 60;
-    println!(
-        "GCD({}, {}) = {}",
-        first_number,
-        second_number,
-        gcd(first_number, second_number)
-    );
+
+    let mut numbers = Vec::new();
+
+    for arg in env::args().skip(1) {
+        numbers.push(u64::from_str(&arg).expect("error parsing argument"));
+    }
+
+    if numbers.len() == 0 {
+        eprintln!("Usage: gcd NUMBER...");
+        std::process::exit(1);
+    }
+
+    let mut d = numbers[0];
+    for m in &numbers[1..] {
+        d = gcd(d, *m);
+    }
+
+    println!("The greatest common divisor of {:?} is {}", numbers, d);
 }
 
 fn gcd(mut n: u64, mut m: u64) -> u64 {
